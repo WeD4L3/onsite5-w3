@@ -78,12 +78,12 @@ $teams = $pdo->query("SELECT * FROM teams")->fetchAll();
 
             <div class="col-md-1">
                 <input type="number" class="form-control"
-                    name="team1_goals" required min="0">
+                    name="team1_goals"  min="0">
             </div>
 
             <div class="col-md-1">
                 <input type="number" class="form-control"
-                    name="team2_goals" required min="0">
+                    name="team2_goals" min="0">
             </div>
 
             <div class="col-md-3">
@@ -130,7 +130,11 @@ $teams = $pdo->query("SELECT * FROM teams")->fetchAll();
             <tr>
                 <td><?= date('d/m/Y H:i', strtotime($match['match_date'])) ?></td>
                 <td><?= htmlspecialchars($match['team1_name']) ?> vs <?= htmlspecialchars($match['team2_name']) ?></td>
+                <?php if($match['team1_goals'] != NULL && $match['team2_goals'] != NULL): ?>
                 <td><?= $match['team1_goals'] ?> - <?= $match['team2_goals'] ?></td>
+                <?php else:?>
+                    <td><span class="badge bg-success">Upcoming</span></td>
+                <?php endif;?>
             </tr>
         <?php endforeach; ?>
     </tbody>
